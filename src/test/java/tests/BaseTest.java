@@ -1,6 +1,7 @@
 package tests;
 
 import com.SpringSelenium.SpringSeleniumApplication;
+import com.SpringSelenium.annotations.LazyAutowired;
 import com.SpringSelenium.pages.HomePage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -10,6 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.annotation.DirtiesContext;
 
 
@@ -17,8 +19,6 @@ import org.springframework.test.annotation.DirtiesContext;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class BaseTest {
 
-    @Autowired
-    public WebDriver driver;
     @Autowired
     public HomePage homePage;
 
@@ -28,7 +28,6 @@ public class BaseTest {
     public String name;
     @Value("${password}")
     public String password;
-
 
 
 
