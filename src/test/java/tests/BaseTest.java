@@ -2,9 +2,11 @@ package tests;
 
 import com.SpringSelenium.SpringSeleniumApplication;
 import com.SpringSelenium.pages.HomePage;
+import com.SpringSelenium.utils.ScreenShotUtil;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,6 @@ import org.springframework.test.annotation.DirtiesContext;
 public class BaseTest {
 
     @Autowired
-    public WebDriver driver;
-    @Autowired
     public HomePage homePage;
 
     @Value("${url}")
@@ -28,6 +28,8 @@ public class BaseTest {
     public String name;
     @Value("${password}")
     public String password;
+
+
 
 
 

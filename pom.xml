@@ -9,20 +9,21 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.SpringSeleniu</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>SpringSelenium</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo</name>
 	<description>Test</description>
 	<properties>
-		<java.version>17</java.version>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
+		<java.version>11</java.version>
 		<maven.surefire.version>3.0.0-M5</maven.surefire.version>
-		<java.version>17</java.version>
+		<java.version>11</java.version>
 		<selenium.version>4.1.1</selenium.version>
 		<webdrivermanager.version>5.0.3</webdrivermanager.version>
 		<junit.jupiter.version>5.8.2</junit.jupiter.version>
 		<junit.platform.version>1.8.2</junit.platform.version>
+		<aspectj.version>1.9.7</aspectj.version>
+		<allure.version>2.13.1</allure.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
 		<!--Spring Boot-->
@@ -81,9 +82,16 @@
 			<version>${junit.platform.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-junit5</artifactId>
+			<version>2.14.0</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
-
+<!--Profiles-->
 	<profiles>
 		<profile>
 			<id>dev</id>
@@ -106,7 +114,6 @@
 	</profiles>
 
 	<build>
-
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -116,6 +123,60 @@
 
 
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+<!--					<properties>-->
+<!--						<property>-->
+<!--							<name>listener</name>-->
+<!--							<value>io.qameta.allure.junit5.AllureJunit5</value>-->
+<!--						</property>-->
+<!--					</properties>-->
+					<includes>
+						<include>*/**</include>
+					</includes>
+					<argLine>
+						-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+					</argLine>
+					<systemProperties>
+						<property>
+							<name>junit.jupiter.extensions.autodetection.enabled</name>
+							<value>true</value>
+						</property>
+					</systemProperties>
+					<reportFormat>plain</reportFormat>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjweaver</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>io.qameta.allure</groupId>
+				<artifactId>allure-maven</artifactId>
+				<version>2.10.0</version>
+			</plugin>
+
+
+			<!--Spring-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

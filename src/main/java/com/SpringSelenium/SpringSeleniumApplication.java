@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringSeleniumApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringSeleniumApplication.class, args);
+
+
     }
 
 }
