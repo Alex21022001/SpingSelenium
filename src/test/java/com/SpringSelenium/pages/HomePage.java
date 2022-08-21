@@ -1,17 +1,15 @@
 package com.SpringSelenium.pages;
 
+import com.SpringSelenium.reports.helpfulannotations.StepWithResult;
+import com.SpringSelenium.reports.helpfulannotations.StepWithRetry;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.Story;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Component
@@ -40,15 +38,16 @@ public class HomePage extends BasePage {
     private WebElement but;
 
 
-    @Step(value = "go to {url}")
-    @Story("go to main page")
+    @Step(value = "Go to the site -- {url} --")
+    @Story("Go to main page")
     public HomePage goToHomePage(String url) {
         driver.get(url);
         waitForPageLoadComplete(WAIT_TIME);
         return this;
     }
 
-    @Step(value = "Try to sing in using {0} and {1}")
+
+    @Step(value = "Try to sing in the site using [name: {0} ] and [password: {1}]")
     @Description("Method try to login in a site ")
     public HomePage goToLogin(String name, String password) {
         singIn.click();
@@ -62,6 +61,8 @@ public class HomePage extends BasePage {
         return this;
     }
 
+    @Step("Chose title from menu")
+    @StepWithRetry(value = 5)
     public HomePage choseTitle() {
         waitForPageLoadComplete(WAIT_TIME);
         try {
@@ -71,11 +72,11 @@ public class HomePage extends BasePage {
         }
         listOfMenu.get(8).click();
         waitForPageLoadComplete(WAIT_TIME);
-
         return this;
     }
 
     @Step("Verify singing in a site")
+    @StepWithResult
     public boolean isLogin() {
         try {
             profile.isDisplayed();

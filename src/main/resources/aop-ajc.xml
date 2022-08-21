@@ -1,0 +1,6 @@
+<aspectj>
+    <aspects>
+        <aspect name="com.SpringSelenium.reports.AllureLogAspect"/>
+        <aspect name="com.SpringSelenium.reports.TestRepeater"/>
+    </aspects>
+</aspectj>

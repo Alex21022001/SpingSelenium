@@ -24,19 +24,19 @@ class SpringSelApplicationTests extends BaseTest {
     @Test
     @DisplayName("Try sign in a site")
     @Feature("Test login")
-    void test1() throws InterruptedException {
+    void test1() {
         homePage.goToHomePage(url)
                 .goToLogin(name, password)
                         .choseTitle();
         Assertions.assertTrue(homePage.isLogin());
 
     }
-    @Test
-    void test2(){
-        homePage.goToHomePage(url)
-                .goToLogin(name, password)
-                .choseTitle();
-        Assertions.assertTrue(homePage.isLogin());
-    }
+//    @Test
+//    void test2(){
+//        homePage.goToHomePage(url)
+//                .goToLogin(name, password)
+//                .choseTitle();
+//        Assertions.assertTrue(homePage.isLogin());
+//    }
 
 }

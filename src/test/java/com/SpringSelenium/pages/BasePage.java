@@ -1,6 +1,8 @@
 package com.SpringSelenium.pages;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,9 +10,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
@@ -27,9 +29,8 @@ public abstract class BasePage {
     @Autowired
     protected ApplicationContext context;
 
-    protected Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    protected final static long WAIT_TIME = 20;
+    @Value("${wait.time}")
+    protected static long WAIT_TIME;
 
 
     @PostConstruct
